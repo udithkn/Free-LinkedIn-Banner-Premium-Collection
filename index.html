@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>100% Free LinkedIn Banners | No Ads, No Login | Premium Collection</title>
+    <meta name="description" content="Instantly download from a premium collection of 100% free LinkedIn banners. No ads, no login required. Perfect for professionals, marketers, and designers.">
+    <meta name="keywords" content="linkedin banner, free banners, premium banners, professional banners, abstract, minimalist, geometric, workspace, modern design, tech, corporate, creative, no ads, no login">
+    
+    <!-- Tailwind CSS for styling - Requires an internet connection -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter - Requires an internet connection -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Use the Inter font family */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb; /* Softer, off-white background */
+        }
+        
+        /* Card hover effect */
+        .card {
+            position: relative;
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+            border: 1px solid #e5e7eb;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.07), 0 8px 10px -6px rgb(0 0 0 / 0.07);
+        }
+        .card .download-btn:hover {
+             transform: scale(1.03);
+        }
+
+        /* Modal styles */
+        .modal {
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        /* Aspect ratio for banner images */
+        .banner-aspect {
+            position: relative;
+            width: 100%;
+            padding-top: 25%; /* 4:1 Aspect Ratio */
+            background-color: #f3f4f6;
+        }
+        .banner-aspect img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .banner-aspect img.loaded {
+            opacity: 1;
+        }
+
+        /* Hide the default search input cancel button */
+        input[type="search"]::-webkit-search-cancel-button {
+            -webkit-appearance: none;
+        }
+
+        /* Card fade-in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        /* Skeleton loader styles */
+        .skeleton {
+            background-color: #e5e7eb;
+            border-radius: 0.75rem;
+        }
+    </style>
+</head>
+<body class="text-gray-700">
+
+    <!-- Header Section -->
+    <header class="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-40">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-5">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 tracking-tight">100% Free LinkedIn Banner Premium Collection</h1>
+            <p class="mt-2 text-base md:text-lg text-gray-500">Your source for high-quality banners. 100% free, no ads, and no login required.</p>
+            
+            <!-- Search and Sort Controls -->
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Search Input -->
+                <div>
+                    <label for="search-input" class="sr-only">Search Banners</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <input type="search" id="search-input" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white text-gray-700 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Search by name or description...">
+                    </div>
+                </div>
+                <!-- Sort Dropdown -->
+                <div>
+                    <label for="sort-select" class="sr-only">Sort Banners</label>
+                    <select id="sort-select" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 bg-white text-gray-700 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                        <option value="default">Sort by...</option>
+                        <option value="az">Name (A-Z)</option>
+                        <option value="za">Name (Z-A)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content: Image Gallery -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div id="image-gallery" class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <!-- Image cards or skeletons will be inserted here -->
+        </div>
+        <div id="no-results" class="text-center text-gray-500 hidden py-16">
+             <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+            </svg>
+            <h3 class="mt-2 text-lg font-medium text-gray-800">No Banners Found</h3>
+            <p class="mt-1 text-sm text-gray-500">No banners matched your search criteria.</p>
+            <div class="mt-6">
+                <button type="button" id="clear-filters-btn" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                Clear All Filters
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal / Lightbox -->
+    <div id="image-modal" class="modal fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none">
+        <div class="modal-content bg-white rounded-lg shadow-2xl overflow-hidden w-full max-w-6xl transform scale-95">
+            <div class="relative group">
+                <img id="modal-img" src="" alt="Enlarged image" class="w-full h-auto max-h-[80vh] object-contain bg-gray-100">
+                <button id="modal-close" aria-label="Close image preview" class="absolute top-4 right-4 text-gray-600 bg-white/70 rounded-full p-2 hover:bg-white transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="p-6 bg-gray-50">
+                <div class="flex items-center justify-between">
+                     <h3 id="modal-filename" class="text-xl font-semibold text-gray-800"></h3>
+                     <button id="copy-filename-btn" aria-label="Copy filename" class="text-gray-400 hover:text-blue-600 p-1 rounded-md transition">
+                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                     </button>
+                </div>
+                <p id="modal-description" class="text-base text-gray-600 mt-2"></p>
+                <button id="modal-download" class="js-download-btn inline-block w-full sm:w-auto mt-6 text-center bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all duration-300">
+                    Download Original Image
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scroll to Top Button -->
+    <button id="scroll-to-top" aria-label="Scroll to top" class="fixed bottom-5 right-5 bg-blue-600/80 text-white rounded-full p-3 shadow-lg hover:bg-blue-600 transition-all duration-300 opacity-0 pointer-events-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+    </button>
+
+
+    <!-- Footer Section -->
+    <footer class="bg-white mt-12 border-t border-gray-200">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-gray-500">
+            <p>&copy; <span id="current-year"></span> udith babu kn. All rights reserved.</p>
+        </footer>
+
+    <script>
+        // --- Image Data ---
+        const imageData = [
+            {"description": "A modern abstract banner design...","fileName": "Black & Red Modern Personal LinkedIn Banner.png","identifiedObjects": ["curved abstract shapes","red circles","white dots","geometric patterns"],"mainColors": ["Black","Red","White"]},
+            {"description": "A top-down view of a minimalist desk setup...","fileName": "Black and Beige Modern Handwriting Professional Business LinkedIn Banner.png","identifiedObjects": ["wireless keyboard","mouse","notebook","succulent plant"],"mainColors": ["beige","white","brown","green"]},
+            {"description": "An abstract, futuristic background image...","fileName": "Black and Blue Futuristic Marketing LinkedIn Banner.png","identifiedObjects": ["abstract network","interconnected dots","glowing lines"],"mainColors": ["dark blue","electric blue","pink","magenta"]},
+            {"description": "The image features a minimalist design...","fileName": "Black and Green Modern Geometric Marketing LinkedIn Banner.png","identifiedObjects": ["rectangular shapes","color blocks"],"mainColors": ["lime green","white"]},
+            {"description": "An abstract background featuring a gradient...","fileName": "Black and Red Neon Tech Online Sale Black Friday LinkedIn Banner.png","identifiedObjects": ["Abstract background","Diagonal lines","Color gradient"],"mainColors": ["Red","Black"]},
+            {"description": "An abstract, dark background...","fileName": "Black and Red Tech Data Analyst LinkedIn Banner.png","identifiedObjects": ["Geometric lines","Abstract shapes","Glowing circular lights"],"mainColors": ["Black","Dark Grey","Red","Orange"]},
+            {"description": "A minimalist banner with a dark gray background...","fileName": "Black and White Gamer (Hacks or Reviews) General Linkedin Banner.png","identifiedObjects": ["text","abstract shapes","triangles","brushstrokes"],"mainColors": ["Dark Gray","Neon Green","White"]},
+            {"description": "An abstract, dark-themed digital background...","fileName": "Black and White Simple Front End LinkedIn Banner.png","identifiedObjects": ["geometric shapes","glowing particles","squares","circles"],"mainColors": ["black","dark gray","blue","green"]},
+            {"description": "A top-down view of a minimalistic and modern black workspace...","fileName": "Black and White Simple Project Manager LinkedIn Banner.png","identifiedObjects": ["keyboard","reading glasses","stylus","notebooks"],"mainColors": ["black","green","white","brown"]},
+            {"description": "An abstract graphic design featuring a split background...","fileName": "Black and Yellow Graphic Designer LinkedIn Banner.png","identifiedObjects": ["wavy lines","dot pattern","abstract shapes","circle"],"mainColors": ["white","yellow","black","light gray"]},
+            {"description": "A minimalist and abstract banner image...","fileName": "Black Minimalist Memphis Business Profile LinkedIn Banner.png","identifiedObjects": ["stars","geometric shapes","wavy lines","triangles"],"mainColors": ["black","white","gray"]},
+            {"description": "A modern and abstract graphic header or banner...","fileName": "Black Yellow Modern Marketing Email Header.png","identifiedObjects": ["abstract shapes","rounded rectangular text box","wavy lines"],"mainColors": ["yellow","black","gold"]},
+            {"description": "A modern and minimalist LinkedIn banner...","fileName": "Blue & White Modern Social Manager LinkedIn Banner.png","identifiedObjects": ["diagonal shapes","horizontal lines","dotted patterns"],"mainColors": ["white","dark blue","light blue"]},
+            {"description": "An abstract and modern banner featuring a dominant teal background...","fileName": "Blue & Yellow Modern Personal LinkedIn Banner.png","identifiedObjects": ["Geometric shapes","Circles","Rectangles","Diagonal lines"],"mainColors": ["Teal","Orange","Dark Blue","White"]},
+            {"description": "An illustrated banner featuring a person...","fileName": "Blue Illustration Personal LinkedIn Banner.png","identifiedObjects": ["person","computer","desk","coding interface"],"mainColors": ["dark blue","light blue","purple","cyan"]},
+            {"description": "A minimalist abstract background...","fileName": "Blue Minimalist Abstract Wave LinkedIn Banner.png","identifiedObjects": ["abstract waves","gradient background","plus sign patterns"],"mainColors": ["light blue","sky blue","medium blue","dark blue"]},
+            {"description": "An overhead flat lay of a minimalist desk setup...","fileName": "Blue Minimalist Profile LinkedIn Banner.png","identifiedObjects": ["potted plant","spiral notebook","reading glasses","smartphone"],"mainColors": ["blue","white","green","black"]},
+            {"description": "An abstract banner featuring colorful geometric shapes...","fileName": "Colorful Business Data General Linkedin Banner.png","identifiedObjects": ["circles","arcs","dotted lines","abstract shapes"],"mainColors": ["dark blue","orange","yellow","teal"]},
+            {"description": "A vibrant and modern abstract background...","fileName": "Colorful Modern Professional Designer LinkedIn Banner.png","identifiedObjects": ["Abstract shapes","Curved lines","Wave patterns","Amorphous blobs"],"mainColors": ["Yellow","Fuchsia","Dark Blue","Teal"]},
+            {"description": "A minimalist and clean workspace setup...","fileName": "Cream and Brown Simple Consulting LinkedIn Background Photo.png","identifiedObjects": ["desk","wall","pen holder","books"],"mainColors": ["Off-white","Light brown","Pink","Green"]},
+            {"description": "An illustrated banner featuring a person working on data analysis...","fileName": "Green and White Illustrated Data Scientist LinkedIn Banner.png","identifiedObjects": ["person","computer monitor","graph","charts"],"mainColors": ["white","green","dark blue"]},
+            {"description": "A minimalist digital banner featuring a bright mint green background...","fileName": "Green White Neon Minimalist Digital Marketing Course LinkedIn Banner.png","identifiedObjects": ["abstract shapes","arcs","wave patterns"],"mainColors": ["Mint Green","White"]},
+            {"description": "A minimalist flat lay image featuring a modern work setup...","fileName": "Grey and Green Simple Marketing LinkedIn Banner.png","identifiedObjects": ["laptop","smartphone","pens","sticky note"],"mainColors": ["Grey","White","Black","Silver"]},
+            {"description": "An abstract background featuring a gradient of orange and yellow hues...","fileName": "Orange Modern Business LinkedIn Banner.png","identifiedObjects": ["abstract background","diagonal stripes","geometric shapes"],"mainColors": ["orange","yellow"]},
+            {"description": "A banner-style image featuring a two-tone background...","fileName": "Orange Strategy Photo Head of Marketing LinkedIn Banner.png","identifiedObjects": ["color blocks","text"],"mainColors": ["orange","light grey","white"]},
+            {"description": "A modern business-themed banner...","fileName": "Orange White Modern Business Steps LinkedIn Banner.png","identifiedObjects": ["cityscape","skyscrapers","abstract shapes","arrows graphic"],"mainColors": ["Orange","Yellow","White","Brown"]},
+            {"description": "A vibrant and modern graphic design banner...","fileName": "Pink and White Modern Creative Geometric Graphic Designer Portfolio LinkedIn Banner.png","identifiedObjects": ["graphic designer portfolio banner","geometric shapes","design tool palette"],"mainColors": ["hot pink","white","black","lime green"]},
+            {"description": "A top-down view of a minimalist office desk setup...","fileName": "Pink Minimalist Office Desk LinkedIn Banner.png","identifiedObjects": ["laptop","pen","plant","calculator"],"mainColors": ["pink","white","black","gold"]},
+            {"description": "A playful and modern banner featuring a solid lilac...","fileName": "Purple Lilac Playful Illustrative Marketing LinkedIn Banner.png","identifiedObjects": ["geometric patterns","abstract shapes","squares","circles"],"mainColors": ["purple","yellow","red","blue"]},
+            {"description": "An abstract, modern background image...","fileName": "Purple White Modern Project Manager Linkedin Background Photo.png","identifiedObjects": ["square shapes","diamond shapes","curved shapes","oval shapes"],"mainColors": ["dark purple","purple","light purple"]},
+            {"description": "A modern, abstract banner design...","fileName": "Purple Yellow and White Modern Personal LinkedIn Banner.png","identifiedObjects": ["Abstract shapes","Yellow circle with brushstrokes","Purple curved band"],"mainColors": ["Purple","Yellow","White","Grey"]},
+            {"description": "An abstract graphic design featuring three large circular shapes...","fileName": "Red & Yellow Gradient Graphic Designer LinkedIn Banner.png","identifiedObjects": ["gradient circles","solid circle","concentric lines"],"mainColors": ["Light Gray","Pink","Red","Yellow"]},
+            {"description": "An abstract banner featuring various shades of red...","fileName": "Red Abstract Color Block Graphic Designer Linkedin Banner.png","identifiedObjects": ["Abstract shapes","Geometric patterns","Arrows","Chevrons"],"mainColors": ["Red","Dark Red","Bright Red"]},
+            {"description": "An abstract banner design featuring a gradient background...","fileName": "Red Abstract Design Consultant LinkedIn Banner.png","identifiedObjects": ["abstract shapes","gradient","rings","diagonal lines"],"mainColors": ["red","orange","yellow","white"]},
+            {"description": "An abstract background image featuring a sharp diagonal split...","fileName": "Red and Black Modern Digital Marketing Manager Profile LinkedIn Background Photo.png","identifiedObjects": ["gradient background","diagonal division","dot patterns"],"mainColors": ["red","black","dark red","white"]},
+            {"description": "An abstract background featuring a smooth gradient transition...","fileName": "Red And Blue Abstract Modern Professional LinkedIn Banner.png","identifiedObjects": ["Abstract shapes","Gradient background","Curved lines","Halftone pattern"],"mainColors": ["Fuchsia","Purple","Dark Blue","Pink"]},
+            {"description": "A top-down view of a workspace setup...","fileName": "Red and White Blog Business Linkedin Banner.png","identifiedObjects": ["laptop","headphones","notebook","pen"],"mainColors": ["red","white","silver","black"]},
+            {"description": "An abstract banner image featuring a vibrant yellow background...","fileName": "Red and Yellow Professional Teaching Linkedin Banner.png","identifiedObjects": ["Abstract shapes","Circles","Wavy lines","Grids of small circles"],"mainColors": ["Yellow","Red"]},
+            {"description": "A top-down, minimalist view of a white desk setup...","fileName": "White and Black Simple Marketing LinkedIn Banner.png","identifiedObjects": ["keyboard","computer mouse","spiral notebook","potted plant"],"mainColors": ["white","grey","green","black"]},
+            {"description": "A top-down, minimalist desk setup against a bright white background...","fileName": "White and Black Simple Social Media LinkedIn Banner.png","identifiedObjects": ["laptops","keyboard","computer mice","notebooks"],"mainColors": ["white","black","grey","brown"]},
+            {"description": "A banner-style image with a clean, white background...","fileName": "White and Red Corporate Personal Profile Linkedin Banner.png","identifiedObjects": ["Red circular shapes","City skyline silhouettes","Buildings"],"mainColors": ["White","Red","Light Gray"]},
+            {"description": "A modern, abstract banner background...","fileName": "White and Red Modern Personal LinkedIn Banner.png","identifiedObjects": ["geometric shapes","abstract design elements","dots"],"mainColors": ["white","red","gray"]},
+            {"description": "A clean, minimal banner featuring a white background...","fileName": "White Memphis Minimal UIUX Designer LinkedIn Banner.png","identifiedObjects": ["geometric shapes","circle","rounded rectangle","arcs"],"mainColors": ["white","light grey","light yellow","pink"]},
+            {"description": "An abstract background featuring a gradient of warm colors...","fileName": "Yellow and Black Monochrome Digital Marketing LinkedIn Banner.png","identifiedObjects": ["Abstract shapes","Color gradient"],"mainColors": ["Orange","Yellow"]},
+            {"description": "A modern and abstract banner design...","fileName": "Yellow and White Modern LinkedIn Banner.png","identifiedObjects": ["abstract shapes","geometric patterns","circles","diagonal line"],"mainColors": ["yellow","white","teal"]},
+            {"description": "A top-down, minimalist view of a workspace setup...","fileName": "Yellow Black Minimalist Product Manager Personal Profile LinkedIn Banner.png","identifiedObjects": ["laptop","potted plant","smartphone","tablet"],"mainColors": ["Mustard Yellow","Black","Silver","Green"]},
+            {"description": "An abstract graphic background...","fileName": "Yellow Corporate Real Estate ProfessionalBusiness Services LinkedIn Banner.png","identifiedObjects": ["abstract shapes","color blocks","diagonal stripes"],"mainColors": ["yellow","light grey","white"]},
+            {"description": "A minimalist and modern banner image...","fileName": "Yellow Geometric Modern Professional Manager LinkedIn Banner.png","identifiedObjects": ["abstract curved shape","circle","vertical bar","logo"],"mainColors": ["White","Yellow","Orange","Red"]},
+            {"description": "A top-down flat lay image displaying various creative and office supplies...","fileName": "Yellow Modern Linkedin Banner.png","identifiedObjects": ["vintage camera","notebook","envelope","pushpins"],"mainColors": ["yellow","white","black","silver"]},
+            {"description": "A top-down, wide shot featuring a bright yellow vintage typewriter...","fileName": "Yellow Simple Freelance Copywriter LinkedIn Banner.png","identifiedObjects": ["typewriter","paper","crumpled paper"],"mainColors": ["yellow","white","black"]}
+        ];
+
+        // --- DOM Elements ---
+        const gallery = document.getElementById('image-gallery');
+        const searchInput = document.getElementById('search-input');
+        const sortSelect = document.getElementById('sort-select');
+        const noResults = document.getElementById('no-results');
+        const clearFiltersBtn = document.getElementById('clear-filters-btn');
+        const modal = document.getElementById('image-modal');
+        const modalImg = document.getElementById('modal-img');
+        const modalClose = document.getElementById('modal-close');
+        const modalFilename = document.getElementById('modal-filename');
+        const modalDescription = document.getElementById('modal-description');
+        const modalDownload = document.getElementById('modal-download');
+        const copyFilenameBtn = document.getElementById('copy-filename-btn');
+        const scrollToTopBtn = document.getElementById('scroll-to-top');
+
+        let activeCategoryFilter = null;
+        let lazyLoadObserver;
+
+        // --- Functions ---
+        
+        const colorMap = {
+            black: '#000000', red: '#dc2626', white: '#ffffff', beige: '#f5f5dc',
+            brown: '#a52a2a', green: '#22c55e', 'dark blue': '#00008b', 'electric blue': '#7df9ff',
+            pink: '#ec4899', magenta: '#ff00ff', 'lime green': '#32cd32', 'dark grey': '#a9a9a9',
+            'neon green': '#39ff14', 'dark gray': '#a9a9a9', blue: '#3b82f6', yellow: '#facc15',
+            gold: '#ffd700', 'light blue': '#add8e6', teal: '#14b8a6', orange: '#f97316',
+            cyan: '#00ffff', 'sky blue': '#87ceeb', 'medium blue': '#0000cd', fuchsia: '#d946ef',
+            'off-white': '#f8f8ff', 'light brown': '#c4a484', grey: '#808080', 'mint green': '#98ff98',
+            silver: '#c0c0c0', 'light grey': '#d3d3d3', 'light gray': '#d3d3d3', 'reddish-orange': '#ff5349',
+            'hot pink': '#ff69b4', purple: '#800080', 'light purple': '#e6e6fa', 'bright red': '#ee4b2b',
+            'mustard yellow': '#ffdb58', 'dark red': '#8b0000', 'light yellow': '#ffffe0'
+        };
+
+        function isColorDark(hex) {
+            if (!hex) return false;
+            const hexValue = hex.startsWith('#') ? hex.slice(1) : hex;
+            const r = parseInt(hexValue.substring(0, 2), 16);
+            const g = parseInt(hexValue.substring(2, 4), 16);
+            const b = parseInt(hexValue.substring(4, 6), 16);
+            const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+            return yiq < 128;
+        }
+
+        function triggerDownload(imageUrl, fileName) {
+            const link = document.createElement('a');
+            link.href = imageUrl;
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function openModal(image) {
+            const originalSrc = `images/${encodeURIComponent(image.fileName)}`;
+            modalImg.src = originalSrc;
+            modalFilename.textContent = image.fileName;
+            modalDescription.textContent = image.description;
+            modalDownload.dataset.src = originalSrc;
+            modalDownload.dataset.filename = image.fileName;
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.querySelector('.modal-content').classList.remove('scale-95');
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.querySelector('.modal-content').classList.add('scale-95');
+        }
+
+        function renderSkeletons(count) {
+            gallery.innerHTML = '';
+            noResults.classList.add('hidden');
+            for (let i = 0; i < count; i++) {
+                const skeleton = document.createElement('div');
+                skeleton.className = 'bg-white rounded-xl overflow-hidden flex flex-col border border-gray-200';
+                skeleton.innerHTML = `
+                    <div class="banner-aspect skeleton animate-pulse"></div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <div class="h-4 bg-gray-200 rounded w-3/4 animate-pulse"></div>
+                        <div class="mt-4 flex flex-wrap gap-2 min-h-[32px] items-center">
+                            <div class="h-6 w-16 bg-gray-200 rounded-full animate-pulse"></div>
+                            <div class="h-6 w-20 bg-gray-200 rounded-full animate-pulse"></div>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-gray-50 border-t border-gray-200">
+                        <div class="h-9 bg-gray-200 rounded-md animate-pulse"></div>
+                    </div>
+                `;
+                gallery.appendChild(skeleton);
+            }
+        }
+
+        function renderGallery(images) {
+            gallery.innerHTML = ''; // Clear existing gallery
+            if (images.length === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+
+            images.forEach((image, index) => {
+                const imageSrc = `images/${encodeURIComponent(image.fileName)}`;
+                const card = document.createElement('div');
+                card.className = 'card bg-white rounded-xl overflow-hidden cursor-pointer flex flex-col fade-in';
+                card.style.animationDelay = `${index * 50}ms`;
+                
+                let colorTagsHtml = '';
+                if (image.mainColors && image.mainColors.length > 0) {
+                    colorTagsHtml = image.mainColors.slice(0, 3).map(colorName => {
+                        const normalizedColorName = colorName.toLowerCase().replace(/\s+/g, ' ');
+                        const hexColor = colorMap[normalizedColorName] || '#e5e7eb';
+                        const colorIsDark = isColorDark(hexColor);
+                        const textColor = colorIsDark ? 'text-white' : 'text-gray-800';
+                        const borderClass = hexColor === '#ffffff' || hexColor === '#ffffe0' ? 'border border-gray-300' : '';
+                        return `<span class="text-xs font-semibold px-2.5 py-1 rounded-full ${textColor} ${borderClass}" style="background-color:${hexColor};">${colorName}</span>`;
+                    }).join('');
+                }
+
+                let categoryTagsHtml = '';
+                if (image.identifiedObjects && image.identifiedObjects.length > 0) {
+                    categoryTagsHtml = image.identifiedObjects.slice(0, 2).map(cat => 
+                        `<button class="category-tag text-xs text-blue-600 bg-blue-100 hover:bg-blue-200 rounded-full px-2.5 py-1 transition-colors" data-category="${cat}">${cat}</button>`
+                    ).join('');
+                }
+
+                card.innerHTML = `
+                    <div class="banner-aspect">
+                        <img data-src="${imageSrc}" alt="${image.description.substring(0, 80)}" class="lazy" onerror="this.onerror=null;this.src='https://placehold.co/1584x396/e5e7eb/9ca3af?text=Image+Not+Found';">
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <h3 class="text-base font-bold text-gray-800 truncate" title="${image.fileName}">${image.fileName}</h3>
+                        <div class="mt-3 flex flex-wrap gap-2 min-h-[32px] items-center">${colorTagsHtml}</div>
+                        <div class="mt-3 flex flex-wrap gap-2 min-h-[32px] items-center">${categoryTagsHtml}</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 border-t border-gray-200">
+                        <button data-src="${imageSrc}" data-filename="${image.fileName}" class="download-btn js-download-btn block w-full text-center bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300">
+                            Download
+                        </button>
+                    </div>
+                `;
+
+                card.querySelector('.banner-aspect').addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('category-tag')) {
+                         openModal(image)
+                    }
+                });
+                gallery.appendChild(card);
+            });
+
+            // After rendering, observe the new images for lazy loading
+            const lazyImages = gallery.querySelectorAll('.lazy');
+            lazyImages.forEach(img => lazyLoadObserver.observe(img));
+        }
+        
+        function setupLazyLoading() {
+            lazyLoadObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.add('loaded');
+                        observer.unobserve(img);
+                    }
+                });
+            }, { rootMargin: "0px 0px 200px 0px" }); // Load images 200px before they enter the viewport
+        }
+
+        function applyFiltersAndSort() {
+            renderSkeletons(6); // Show skeletons for instant feedback
+
+            setTimeout(() => { // Simulate network delay for a smoother feel
+                let filteredImages = [...imageData];
+                const searchTerm = searchInput.value.toLowerCase();
+                const sortValue = sortSelect.value;
+
+                // Apply filters
+                if (searchTerm && !searchTerm.startsWith('tag:')) {
+                    filteredImages = filteredImages.filter(image => 
+                        image.fileName.toLowerCase().includes(searchTerm) || 
+                        image.description.toLowerCase().includes(searchTerm)
+                    );
+                }
+                
+                if (activeCategoryFilter) {
+                    filteredImages = filteredImages.filter(image =>
+                        image.identifiedObjects.some(c => c.toLowerCase() === activeCategoryFilter)
+                    );
+                }
+
+                // Apply sort
+                if (sortValue === 'az') {
+                    filteredImages.sort((a, b) => a.fileName.localeCompare(b.fileName));
+                } else if (sortValue === 'za') {
+                    filteredImages.sort((a, b) => b.fileName.localeCompare(a.fileName));
+                }
+
+                renderGallery(filteredImages);
+            }, 300);
+        }
+
+        // --- Initial Render & Event Listeners ---
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            setupLazyLoading();
+            renderSkeletons(8);
+            setTimeout(() => renderGallery(imageData), 300);
+        });
+
+        searchInput.addEventListener('input', () => {
+             // If user types, clear the category filter
+            if (!searchInput.value.startsWith('tag:')) {
+                activeCategoryFilter = null;
+            }
+            applyFiltersAndSort();
+        });
+        sortSelect.addEventListener('change', applyFiltersAndSort);
+        clearFiltersBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            sortSelect.value = 'default';
+            activeCategoryFilter = null;
+            applyFiltersAndSort();
+        });
+
+        gallery.addEventListener('click', e => {
+            const button = e.target.closest('.category-tag');
+            if (!button) return;
+            
+            const category = button.dataset.category.toLowerCase();
+            if (activeCategoryFilter === category) {
+                // If the same tag is clicked again, clear the filter
+                activeCategoryFilter = null;
+                searchInput.value = '';
+            } else {
+                activeCategoryFilter = category;
+                // Visually update the search input to show the active tag filter
+                searchInput.value = `Tag: ${button.dataset.category}`;
+            }
+            applyFiltersAndSort();
+        });
+
+        copyFilenameBtn.addEventListener('click', (e) => {
+            navigator.clipboard.writeText(modalFilename.textContent).then(() => {
+                const originalText = e.currentTarget.innerHTML;
+                e.currentTarget.innerHTML = `<svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>`;
+                setTimeout(() => { e.currentTarget.innerHTML = originalText; }, 2000);
+            });
+        });
+
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('js-download-btn')) {
+                const button = e.target;
+                triggerDownload(button.dataset.src, button.dataset.filename);
+            }
+        });
+
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                scrollToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+            }
+        });
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
